@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ML & Generative AI Model Exam Study Hub</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            900: '#312e81'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .code-scroll::-webkit-scrollbar {
+            height: 6px;
+            width: 6px;
+        }
+        .code-scroll::-webkit-scrollbar-thumb {
+            background: #475569;
+            border-radius: 4px;
+        }
+        .code-scroll::-webkit-scrollbar-track {
+            background: #1e293b;
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-100 font-sans antialiased min-h-screen flex flex-col md:flex-row">
+
+    <!-- Mobile Header -->
+    <header class="md:hidden bg-slate-800 border-b border-slate-700 p-4 sticky top-0 z-50 flex items-center justify-between">
+        <div class="flex items-center space-x-2">
+            <i data-lucide="brain-circuit" class="w-6 h-6 text-indigo-400"></i>
+            <span class="font-bold text-lg text-white">ML Exam Master</span>
+        </div>
+        <button id="mobileMenuBtn" class="p-2 rounded-lg bg-slate-700 text-slate-200">
+            <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+    </header>
+
+    <!-- Sidebar Navigation -->
+    <aside id="sidebar" class="w-full md:w-72 bg-slate-800 border-r border-slate-700 p-5 flex flex-col justify-between hidden md:flex fixed md:sticky top-0 h-screen z-40 overflow-y-auto">
+        <div>
+            <!-- App Title -->
+            <div class="flex items-center space-x-3 mb-8 px-2">
+                <div class="p-2.5 bg-indigo-600/20 text-indigo-400 rounded-xl border border-indigo-500/30">
+                    <i data-lucide="brain-circuit" class="w-7 h-7"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-lg leading-tight text-white">ML & GenAI</h1>
+                    <p class="text-xs text-indigo-400 font-medium tracking-wide">Model Exam Prep</p>
+                </div>
+            </div>
+
+            <!-- Navigation Links -->
+            <nav class="space-y-1">
+                <a href="#overview" class="nav-link flex items-center space-x-3 px-3 py-2.5 rounded-xl text-sm font-medium text-slate-300 hover:bg-slate-700/60 hover:text-white transition">
+                    <i data-lucide="layout-dashboard" class="w-4 h-4 text-indigo-400"></i>
+                    <span>Exam Overview</span>
+                </a>
+                <a href="#section-a" class="nav-link flex items-center space-x-3 px-3 py-2.5 rounded-xl text-sm font-medium text-slate-300 hover:bg-slate-700/60 hover:text-white transition">
+                    <i data-lucide="book-open" class="w-4 h-4 text-emerald-400"></i>
+                    <span>Section A: Core Concepts</span>
+                </a>
+                <a href="#pandas-lab" class="nav-link flex items-center space-x-3 px-3 py-2.5 rounded-xl text-sm font-medium text-slate-300 hover:bg-slate-700/60 hover:text-white transition">
+                    <i data-lucide="table" class="w-4 h-4 text-cyan-400"></i>
+                    <span>Pandas & Lab Querying</span>
+                </a>
+                <a href="#section-b" class="nav-link flex items-center space-x-3 px-3 py-2.5 rounded-xl text-sm font-medium text-slate-300 hover:bg-slate-700/60 hover:text-white transition">
+                    <i data-lucide="bar-chart-3" class="w-4 h-4 text-amber-400"></i>
+                    <span>Section B: EDA Plots</span>
+                </a>
+                <a href="#models-summary" class="nav-link flex items-center space-x-3 px-3 py-2.5 rounded-xl text-sm font-medium text-slate-300 hover:bg-slate-700/60 hover:text-white transition">
+                    <i data-lucide="cpu" class="w-4 h-4 text-purple-400"></i>
+                    <span>Classifiers Comparison</span>
+                </a>
+                <a href="#section-c" class="nav-link flex items-center space-x-3 px-3 py-2.5 rounded-xl text-sm font-medium text-slate-300 hover:bg-slate-700/60 hover:text-white transition">
+                    <i data-lucide="code" class="w-4 h-4 text-rose-400"></i>
+                    <span>Section C: Complete Pipelines</span>
+                </a>
+            </nav>
+        </div>
+
+        <!-- Exam Countdown / Good Luck Card -->
+        <div class="bg-gradient-to-br from-indigo-950 to-slate-800 p-4 rounded-xl border border-indigo-500/30 text-center">
+            <span class="inline-block p-2 bg-indigo-500/10 text-indigo-300 rounded-full mb-2">
+                <i data-lucide="sparkles" class="w-5 h-5"></i>
+            </span>
+            <p class="text-xs text-indigo-200 font-semibold uppercase tracking-wider">Exam Ready</p>
+            <p class="text-xs text-slate-400 mt-1">Best wishes for your exam tomorrow!</p>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 p-4 md:p-8 max-w-5xl mx-auto w-full space-y-10">
+
+        <!-- Top Banner -->
+        <section id="overview" class="bg-gradient-to-r from-indigo-900 via-indigo-800 to-slate-800 rounded-2xl p-6 md:p-8 border border-indigo-500/30 shadow-2xl relative overflow-hidden">
+            <div class="relative z-10 space-y-3">
+                <span class="bg-indigo-500/20 text-indigo-300 text-xs font-semibold px-3 py-1 rounded-full border border-indigo-400/30 inline-flex items-center gap-1.5">
+                    <i data-lucide="graduation-cap" class="w-3.5 h-3.5"></i> II BSc AI & ML - Semester III
+                </span>
+                <h2 class="text-2xl md:text-3xl font-extrabold text-white tracking-tight">Generative AI & Machine Learning</h2>
+                <p class="text-slate-300 text-sm md:text-base max-w-2xl leading-relaxed">
+                    Complete solution suite covering Section A (Definitions & Metrics), Section B (EDA Visualizations), Section C (End-to-End Scikit-Learn Workflows), and Assignment 4 Pandas Indexing operations.
+                </p>
+                <div class="pt-2 flex flex-wrap gap-4 text-xs font-medium text-slate-300">
+                    <span class="flex items-center gap-1.5 bg-slate-900/60 px-3 py-1.5 rounded-lg border border-slate-700">
+                        <i data-lucide="clock" class="w-4 h-4 text-indigo-400"></i> Time: 3 Hours
+                    </span>
+                    <span class="flex items-center gap-1.5 bg-slate-900/60 px-3 py-1.5 rounded-lg border border-slate-700">
+                        <i data-lucide="award" class="w-4 h-4 text-emerald-400"></i> Max Marks: 75
+                    </span>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION A: CORE CONCEPTS & DEFINITIONS -->
+        <section id="section-a" class="space-y-6">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                <div class="flex items-center space-x-3">
+                    <span class="p-2 bg-emerald-500/10 text-emerald-400 rounded-lg"><i data-lucide="book-open" class="w-5 h-5"></i></span>
+                    <h3 class="text-xl font-bold text-white">Section A: Core Concepts & Short Answers</h3>
+                </div>
+                <span class="text-xs bg-slate-800 text-slate-400 px-3 py-1 rounded-full border border-slate-700">5 x 5 = 25 Marks</span>
+            </div>
+
+            <!-- Concepts Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                
+                <!-- EDA Card -->
+                <div class="bg-slate-800/80 p-5 rounded-xl border border-slate-700/80 space-y-2 hover:border-indigo-500/50 transition">
+                    <div class="flex items-center space-x-2 text-indigo-400 font-semibold">
+                        <i data-lucide="search" class="w-4 h-4"></i>
+                        <h4>Exploratory Data Analysis (EDA)</h4>
+                    </div>
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        An approach to analyzing datasets to summarize main characteristics using graphics and statistics. 
+                    </p>
+                    <div class="text-xs text-slate-400 bg-slate-900/60 p-2.5 rounded-lg border border-slate-700/50 mt-2 space-y-1">
+                        <p class="font-medium text-slate-300">4 Main Objectives:</p>
+                        <ul class="list-disc list-inside space-y-0.5 text-slate-400">
+                            <li>Identify patterns, outliers, and missing data.</li>
+                            <li>Check statistical assumptions for ML models.</li>
+                            <li>Understand feature-target relationships.</li>
+                            <li>Guide feature selection & engineering.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Numerical vs Categorical -->
+                <div class="bg-slate-800/80 p-5 rounded-xl border border-slate-700/80 space-y-2 hover:border-indigo-500/50 transition">
+                    <div class="flex items-center space-x-2 text-indigo-400 font-semibold">
+                        <i data-lucide="binary" class="w-4 h-4"></i>
+                        <h4>Numerical vs. Categorical Variables</h4>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2 text-xs mt-2">
+                        <div class="bg-slate-900/60 p-2.5 rounded-lg border border-slate-700/50">
+                            <span class="font-bold text-indigo-300 block mb-1">Numerical</span>
+                            <p class="text-slate-400">Measurable numbers where arithmetic operations make sense.</p>
+                            <span class="text-[10px] text-emerald-400 block mt-1">Ex: Age, BMI, Charges</span>
+                        </div>
+                        <div class="bg-slate-900/60 p-2.5 rounded-lg border border-slate-700/50">
+                            <span class="font-bold text-indigo-300 block mb-1">Categorical</span>
+                            <p class="text-slate-400">Values representing discrete groups or text labels.</p>
+                            <span class="text-[10px] text-emerald-400 block mt-1">Ex: Smoker, Attrition_Flag</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Overfitting vs Underfitting -->
+                <div class="bg-slate-800/80 p-5 rounded-xl border border-slate-700/80 space-y-2 hover:border-indigo-500/50 transition">
+                    <div class="flex items-center space-x-2 text-indigo-400 font-semibold">
+                        <i data-lucide="git-fork" class="w-4 h-4"></i>
+                        <h4>Overfitting vs. Underfitting</h4>
+                    </div>
+                    <ul class="text-xs text-slate-300 space-y-2 mt-2">
+                        <li class="bg-slate-900/60 p-2 rounded-lg border border-slate-700/50">
+                            <strong class="text-amber-400">Underfitting (High Bias):</strong> Model is too simple; performs poorly on both training and test data.
+                        </li>
+                        <li class="bg-slate-900/60 p-2 rounded-lg border border-slate-700/50">
+                            <strong class="text-rose-400">Overfitting (High Variance):</strong> Model memorizes training noise; performs exceptionally on training set but poorly on unseen test data.
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Univariate vs Bivariate -->
+                <div class="bg-slate-800/80 p-5 rounded-xl border border-slate-700/80 space-y-2 hover:border-indigo-500/50 transition">
+                    <div class="flex items-center space-x-2 text-indigo-400 font-semibold">
+                        <i data-lucide="layers" class="w-4 h-4"></i>
+                        <h4>Univariate vs. Bivariate Analysis</h4>
+                    </div>
+                    <div class="text-xs text-slate-300 space-y-2 mt-2">
+                        <div class="bg-slate-900/60 p-2.5 rounded-lg border border-slate-700/50">
+                            <strong class="text-slate-200">Univariate:</strong> Analyzing one feature at a time (e.g., histogram of `charges` or `countplot` of target variable).
+                        </div>
+                        <div class="bg-slate-900/60 p-2.5 rounded-lg border border-slate-700/50">
+                            <strong class="text-slate-200">Bivariate:</strong> Analyzing the relationship between two variables simultaneously (e.g., boxplot of `smoker` vs `charges`).
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Evaluation Metrics Deep Dive -->
+            <div class="bg-slate-800/90 p-5 rounded-xl border border-slate-700 space-y-4">
+                <h4 class="font-bold text-slate-100 flex items-center gap-2 text-sm">
+                    <i data-lucide="target" class="w-4 h-4 text-indigo-400"></i> Classification Evaluation Metrics Explained
+                </h4>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
+                    <div class="bg-slate-900/80 p-3 rounded-lg border border-slate-700/60">
+                        <div class="font-bold text-indigo-300 mb-1">Accuracy</div>
+                        <p class="text-slate-400">Overall correct predictions ratio.</p>
+                        <code class="block mt-2 text-[11px] text-slate-300 bg-slate-950 p-1.5 rounded">(TP + TN) / Total</code>
+                    </div>
+                    <div class="bg-slate-900/80 p-3 rounded-lg border border-slate-700/60">
+                        <div class="font-bold text-amber-300 mb-1">Precision</div>
+                        <p class="text-slate-400">Out of predicted positives, how many are true positive? (Avoids false alarms).</p>
+                        <code class="block mt-2 text-[11px] text-slate-300 bg-slate-950 p-1.5 rounded">TP / (TP + FP)</code>
+                    </div>
+                    <div class="bg-slate-900/80 p-3 rounded-lg border border-slate-700/60">
+                        <div class="font-bold text-rose-300 mb-1">Recall (Sensitivity)</div>
+                        <p class="text-slate-400">Out of actual positives, how many did model catch? (Crucial for Churn & Health).</p>
+                        <code class="block mt-2 text-[11px] text-slate-300 bg-slate-950 p-1.5 rounded">TP / (TP + FN)</code>
+                    </div>
+                    <div class="bg-slate-900/80 p-3 rounded-lg border border-slate-700/60">
+                        <div class="font-bold text-emerald-300 mb-1">F1-Score</div>
+                        <p class="text-slate-400">Harmonic mean of Precision and Recall. Best metric for imbalanced data.</p>
+                        <code class="block mt-2 text-[11px] text-slate-300 bg-slate-950 p-1.5 rounded">2 * (P * R) / (P + R)</code>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PANDAS LAB & ASSIGNMENT 4 CHEATSHEET -->
+        <section id="pandas-lab" class="space-y-6">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                <div class="flex items-center space-x-3">
+                    <span class="p-2 bg-cyan-500/10 text-cyan-400 rounded-lg"><i data-lucide="table" class="w-5 h-5"></i></span>
+                    <h3 class="text-xl font-bold text-white">Pandas Operations & Assignment 4 Reference</h3>
+                </div>
+                <span class="text-xs bg-slate-800 text-slate-400 px-3 py-1 rounded-full border border-slate-700">Lab & Code Queries</span>
+            </div>
+
+            <!-- Code Snippets Stack -->
+            <div class="space-y-4">
+                
+                <!-- Quick Queries Snippet -->
+                <div class="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden">
+                    <div class="bg-slate-800/90 px-4 py-3 border-b border-slate-700 flex justify-between items-center">
+                        <span class="text-xs font-semibold text-slate-200 flex items-center gap-2">
+                            <i data-lucide="terminal" class="w-4 h-4 text-cyan-400"></i> Basic Inspection Queries (Q2, Q6, Q7 & Assignment 4)
+                        </span>
+                        <button onclick="copyCode('code-inspect')" class="text-xs text-slate-400 hover:text-white flex items-center gap-1">
+                            <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copy
+                        </button>
+                    </div>
+                    <pre id="code-inspect" class="p-4 text-xs font-mono text-emerald-300 bg-slate-950 overflow-x-auto code-scroll leading-relaxed"><code>import pandas as pd
+
+# Load CSV files into DataFrames
+churn_df = pd.read_csv("Churn Prediction.csv")
+insurance_df = pd.read_csv("insurance_prediction.csv")
+
+# 1. First & Last records
+print(churn_df.head(5))
+print(churn_df.tail(10))
+
+# 2. Shape, Columns & Info
+print("Shape (Rows, Cols):", churn_df.shape)
+print("Columns:", churn_df.columns.tolist())
+churn_df.info()
+
+# 3. Summary Statistics
+print(insurance_df.describe())
+
+# 4. Missing & Duplicate Counts
+print("Missing Values:\n", churn_df.isnull().sum())
+print("Total Missing:", churn_df.isnull().sum().sum())
+print("Duplicate Rows Count:", churn_df.duplicated().sum())</code></pre>
+                </div>
+
+                <!-- Indexing Snippet -->
+                <div class="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden">
+                    <div class="bg-slate-800/90 px-4 py-3 border-b border-slate-700 flex justify-between items-center">
+                        <span class="text-xs font-semibold text-slate-200 flex items-center gap-2">
+                            <i data-lucide="filter" class="w-4 h-4 text-amber-400"></i> Assignment 4: Advanced `.iloc`, `.loc` & Conditional Filtering
+                        </span>
+                        <button onclick="copyCode('code-iloc')" class="text-xs text-slate-400 hover:text-white flex items-center gap-1">
+                            <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copy
+                        </button>
+                    </div>
+                    <pre id="code-iloc" class="p-4 text-xs font-mono text-amber-300 bg-slate-950 overflow-x-auto code-scroll leading-relaxed"><code># Assignment 4 - Q2: iloc slicing on Churn dataset
+# a) Select last 5 rows and all columns except the last one
+res_2a = churn_df.iloc[-5:, :-1]
+
+# b) Slice every 2nd row and select specific columns
+res_2b = insurance_df.iloc[::2][['smoker', 'charges']]
+
+# Assignment 4 - Q6: Slicing on Insurance dataset
+# a) Select rows 10 to 20
+rows_10_20 = insurance_df.iloc[10:21]
+
+# b) iloc for first 5 rows and first 4 columns
+first5_4cols = insurance_df.iloc[:5, :4]
+
+# c) loc to display age, bmi, smoker, charges for rows 10 to 15
+loc_subset = insurance_df.loc[10:15, ['age', 'bmi', 'smoker', 'charges']]
+
+# d) Conditional Filter: age > 40
+above_40 = insurance_df[insurance_df['age'] > 40]
+
+# e) Conditional Filter: smoker == 'yes' and charges > 20000
+high_risk_smokers = insurance_df[(insurance_df['smoker'] == 'yes') & (insurance_df['charges'] > 20000)]</code></pre>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION B: VISUALIZATIONS & EDA -->
+        <section id="section-b" class="space-y-6">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                <div class="flex items-center space-x-3">
+                    <span class="p-2 bg-amber-500/10 text-amber-400 rounded-lg"><i data-lucide="bar-chart-3" class="w-5 h-5"></i></span>
+                    <h3 class="text-xl font-bold text-white">Section B: Visualizations & Scripting</h3>
+                </div>
+                <span class="text-xs bg-slate-800 text-slate-400 px-3 py-1 rounded-full border border-slate-700">3 x 10 = 30 Marks</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                <!-- Q1 Section B -->
+                <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 space-y-3">
+                    <h4 class="text-xs font-bold text-indigo-300 uppercase tracking-wide">Q1: Target Variable Distribution (Churn)</h4>
+                    <p class="text-xs text-slate-300">Plots count distribution of `Attrition_Flag` to inspect class balance.</p>
+                    <pre class="p-3 text-[11px] font-mono text-cyan-300 bg-slate-950 rounded-lg overflow-x-auto code-scroll"><code>plt.figure(figsize=(6, 4))
+sns.countplot(x='Attrition_Flag', data=churn_df, palette='Set2')
+plt.title('Distribution of Attrition Flag')
+plt.xlabel('Customer Status')
+plt.ylabel('Count')
+plt.show()</code></pre>
+                </div>
+
+                <!-- Q2 Section B -->
+                <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 space-y-3">
+                    <h4 class="text-xs font-bold text-indigo-300 uppercase tracking-wide">Q2: Age vs. Attrition Flag</h4>
+                    <p class="text-xs text-slate-300">Boxplot comparing customer age across churned vs existing groups.</p>
+                    <pre class="p-3 text-[11px] font-mono text-cyan-300 bg-slate-950 rounded-lg overflow-x-auto code-scroll"><code>plt.figure(figsize=(7, 4))
+sns.boxplot(x='Attrition_Flag', y='Customer_Age', data=churn_df)
+plt.title('Customer Age by Attrition Status')
+plt.xlabel('Attrition Flag')
+plt.ylabel('Age')
+plt.show()</code></pre>
+                </div>
+
+                <!-- Q3 Section B -->
+                <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 space-y-3">
+                    <h4 class="text-xs font-bold text-indigo-300 uppercase tracking-wide">Q3: Smoker Status vs Insurance Charges</h4>
+                    <p class="text-xs text-slate-300">Demonstrates impact of smoking habits on annual insurance costs.</p>
+                    <pre class="p-3 text-[11px] font-mono text-cyan-300 bg-slate-950 rounded-lg overflow-x-auto code-scroll"><code>plt.figure(figsize=(6, 4))
+sns.boxplot(x='smoker', y='charges', data=insurance_df, palette='coolwarm')
+plt.title('Insurance Charges by Smoker Status')
+plt.xlabel('Smoker (yes/no)')
+plt.ylabel('Charges ($)')
+plt.show()</code></pre>
+                </div>
+
+                <!-- Q4 Section B -->
+                <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 space-y-3">
+                    <h4 class="text-xs font-bold text-indigo-300 uppercase tracking-wide">Q4: Correlation Heatmap (Age, BMI, Charges)</h4>
+                    <p class="text-xs text-slate-300">Computes Pearson correlation matrix and draws annotated heatmap.</p>
+                    <pre class="p-3 text-[11px] font-mono text-cyan-300 bg-slate-950 rounded-lg overflow-x-auto code-scroll"><code>corr = insurance_df[['age', 'bmi', 'charges']].corr()
+plt.figure(figsize=(6, 4))
+sns.heatmap(corr, annot=True, cmap='Blues', fmt='.2f')
+plt.title('Correlation Heatmap')
+plt.show()</code></pre>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- CLASSIFIERS COMPARISON -->
+        <section id="models-summary" class="space-y-6">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                <div class="flex items-center space-x-3">
+                    <span class="p-2 bg-purple-500/10 text-purple-400 rounded-lg"><i data-lucide="cpu" class="w-5 h-5"></i></span>
+                    <h3 class="text-xl font-bold text-white">Ensemble & Tree Classifiers Summary</h3>
+                </div>
+                <span class="text-xs bg-slate-800 text-slate-400 px-3 py-1 rounded-full border border-slate-700">Model Notes</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                
+                <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 flex flex-col justify-between space-y-3">
+                    <div>
+                        <div class="font-bold text-purple-300 text-sm mb-1">Decision Tree</div>
+                        <p class="text-slate-400 leading-relaxed">
+                            Splits data into branches based on feature conditions to create a tree structure. Easy to interpret but prone to overfitting without pruning.
+                        </p>
+                    </div>
+                    <span class="bg-slate-900/80 p-2 rounded text-[10px] text-amber-300 border border-slate-700">Pros: No feature scaling required.</span>
+                </div>
+
+                <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 flex flex-col justify-between space-y-3">
+                    <div>
+                        <div class="font-bold text-purple-300 text-sm mb-1">Random Forest</div>
+                        <p class="text-slate-400 leading-relaxed">
+                            An ensemble of multiple decision trees built using bagging (bootstrap aggregation) and random feature selection.
+                        </p>
+                    </div>
+                    <span class="bg-slate-900/80 p-2 rounded text-[10px] text-emerald-300 border border-slate-700">Pros: Greatly reduces overfitting.</span>
+                </div>
+
+                <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 flex flex-col justify-between space-y-3">
+                    <div>
+                        <div class="font-bold text-purple-300 text-sm mb-1">Gradient Boosting</div>
+                        <p class="text-slate-400 leading-relaxed">
+                            Builds trees sequentially, where each new tree works to minimize the residual errors of the previous trees.
+                        </p>
+                    </div>
+                    <span class="bg-slate-900/80 p-2 rounded text-[10px] text-cyan-300 border border-slate-700">Pros: Highest predictive accuracy.</span>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION C: COMPLETE END-TO-END PIPELINES -->
+        <section id="section-c" class="space-y-6">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                <div class="flex items-center space-x-3">
+                    <span class="p-2 bg-rose-500/10 text-rose-400 rounded-lg"><i data-lucide="code" class="w-5 h-5"></i></span>
+                    <h3 class="text-xl font-bold text-white">Section C: 20-Mark Complete Pipelines</h3>
+                </div>
+                <span class="text-xs bg-slate-800 text-slate-400 px-3 py-1 rounded-full border border-slate-700">1 x 20 = 20 Marks</span>
+            </div>
+
+            <!-- Pipeline Option 1: Customer Churn Classification -->
+            <div class="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden">
+                <div class="bg-slate-800/90 px-5 py-4 border-b border-slate-700 flex justify-between items-center">
+                    <div>
+                        <h4 class="font-bold text-slate-100 text-sm">Option 1: Customer Churn Classification Workflow</h4>
+                        <p class="text-xs text-slate-400">Complete encoding, stratified split, DT & Random Forest training & evaluation</p>
+                    </div>
+                    <button onclick="copyCode('code-churn')" class="text-xs text-slate-400 hover:text-white flex items-center gap-1 bg-slate-900 px-3 py-1.5 rounded-lg border border-slate-700">
+                        <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copy Script
+                    </button>
+                </div>
+                <pre id="code-churn" class="p-4 text-xs font-mono text-sky-300 bg-slate-950 overflow-x-auto code-scroll leading-relaxed"><code>import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
+
+# a) Load dataset into DataFrame
+data = pd.read_csv("Churn Prediction.csv")
+
+# b) Basic Inspection
+print("Shape:", data.shape)
+print(data.head())
+print(data.info())
+print(data.describe())
+
+# c) Identify and remove CLIENTNUM column
+if 'CLIENTNUM' in data.columns:
+    data = data.drop('CLIENTNUM', axis=1)
+
+# d) Encode target variable Attrition_Flag
+attrition_map = {'Existing Customer': 0, 'Attrited Customer': 1}
+if data['Attrition_Flag'].dtype == 'object':
+    data['Attrition_Flag'] = data['Attrition_Flag'].map(attrition_map)
+
+# e) Encode categorical variables (Ordinal mapping + LabelEncoder + get_dummies)
+le = LabelEncoder()
+if 'Gender' in data.columns:
+    data['Gender'] = le.fit_transform(data['Gender'])
+
+# Perform dummy encoding for remaining categorical features
+cat_cols = data.select_dtypes(include=['object']).columns
+data = pd.get_dummies(data, columns=cat_cols, drop_first=True, dtype=int)
+
+# f) Separate independent features X and target variable y
+X = data.drop('Attrition_Flag', axis=1)
+y = data['Attrition_Flag']
+
+# g) Split dataset (70% train, 30% test) using stratification
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.3, random_state=42, stratify=y
+)
+
+# h) Build models using Random Forest and Decision Tree
+dt_model = DecisionTreeClassifier(random_state=42)
+rf_model = RandomForestClassifier(random_state=42)
+
+dt_model.fit(X_train, y_train)
+rf_model.fit(X_train, y_train)
+
+# i) Generate predictions for test data
+y_pred_dt = dt_model.predict(X_test)
+y_pred_rf = rf_model.predict(X_test)
+
+# j & k) Evaluate models and display results
+def evaluate(y_true, y_pred, name):
+    print(f"\n--- {name} Results ---")
+    print("Accuracy :", accuracy_score(y_true, y_pred))
+    print("Precision:", precision_score(y_true, y_pred, zero_division=0))
+    print("Recall   :", recall_score(y_true, y_pred, zero_division=0))
+    print("F1-Score :", f1_score(y_true, y_pred, zero_division=0))
+
+evaluate(y_test, y_pred_dt, "Decision Tree Classifier")
+evaluate(y_test, y_pred_rf, "Random Forest Classifier")</code></pre>
+            </div>
+
+            <!-- Pipeline Option 2: Health Insurance Premium Regression -->
+            <div class="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden">
+                <div class="bg-slate-800/90 px-5 py-4 border-b border-slate-700 flex justify-between items-center">
+                    <div>
+                        <h4 class="font-bold text-slate-100 text-sm">Option 2: Health Insurance Regression Workflow</h4>
+                        <p class="text-xs text-slate-400">Complete encoding, Linear Regression modeling, MSE & R² score evaluation</p>
+                    </div>
+                    <button onclick="copyCode('code-reg')" class="text-xs text-slate-400 hover:text-white flex items-center gap-1 bg-slate-900 px-3 py-1.5 rounded-lg border border-slate-700">
+                        <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copy Script
+                    </button>
+                </div>
+                <pre id="code-reg" class="p-4 text-xs font-mono text-emerald-300 bg-slate-950 overflow-x-auto code-scroll leading-relaxed"><code>import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error, r2_score
+
+# a) Load dataset
+df = pd.read_csv("insurance_prediction.csv")
+
+# b) Perform basic inspection
+print("Shape:", df.shape)
+print(df.head())
+print(df.info())
+print(df.describe())
+
+# c) Encode categorical variables sex, smoker and region
+df = pd.get_dummies(df, columns=['sex', 'smoker', 'region'], drop_first=True, dtype=int)
+
+# d) Separate X and y (target variable = charges)
+X = df.drop('charges', axis=1)
+y = df['charges']
+
+# e) Split dataset into 70% training and 30% testing
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+
+# f) Build Linear Regression model
+regressor = LinearRegression()
+regressor.fit(X_train, y_train)
+
+# g) Predict insurance charges for test data
+y_pred = regressor.predict(X_test)
+
+# h & i) Evaluate model using MSE and R2 score
+mse = mean_squared_error(y_test, y_pred)
+r2 = r2_score(y_test, y_pred)
+
+print("\n--- Regression Evaluation ---")
+print("Mean Squared Error (MSE):", mse)
+print("R² Score:", r2)
+
+# j) Interpretation:
+# High R² score indicates model explains substantial variance in charges.
+# MSE measures mean quadratic variance between actual & predicted fees.</code></pre>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Interactive Scripts -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const sidebar = document.getElementById('sidebar');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('hidden');
+        });
+
+        // Copy Code Functionality
+        function copyCode(elementId) {
+            const codeText = document.getElementById(elementId).innerText;
+            
+            // Use fallback standard copy
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = codeText;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempTextArea);
+
+            // Toast feedback
+            const toast = document.createElement('div');
+            toast.className = 'fixed bottom-4 right-4 bg-emerald-600 text-white text-xs px-4 py-2.5 rounded-xl shadow-xl z-50 flex items-center gap-2 border border-emerald-400/40';
+            toast.innerHTML = '<i data-lucide="check-circle-2" class="w-4 h-4"></i> Code copied to clipboard!';
+            document.body.appendChild(toast);
+            lucide.createIcons();
+            
+            setTimeout(() => {
+                toast.remove();
+            }, 2500);
+        }
+    </script>
+</body>
+</html>
